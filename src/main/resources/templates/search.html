@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<title th:text="${title}">タイトル</title>
+</head>
+<style>
+  h1 {font-size: 18pt; font-weight: bold; color: gray;}
+  body {font-size: 13pt; color: gray; margin: 5px 25px;}
+  tr { margin: 5px;}
+  th { padding: 5px; color: white; background: darkgray;}
+  td { padding: 5px; color: gray; background: #f0f0f0;}
+</style>
+<body>
+  <h1 th:text="${title}">title</h1>
+  <p>検索結果</p>
+  <table>
+    <tr>
+      <th>社員番号</th>
+      <th>名前</th>
+      <th>年齢</th>
+      <th>メールアドレス</th>
+    </tr>
+    <tr th:object="${employee}">
+      <td th:text="*{id}"></td>
+      <td th:text="*{name}"></td>
+      <td th:text="*{age}"></td>
+      <td th:text="*{email}"></td>
+    </tr>
+  </table>
+</body>
+</html>
