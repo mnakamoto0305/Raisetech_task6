@@ -18,8 +18,16 @@ public class HomeController {
 	EmployeeService employeeService;
 
 	//メインページ
+//	@GetMapping("/")
+//	public ModelAndView index(ModelAndView mav) {
+//		mav.setViewName("index");
+//		mav.addObject("title", "社員情報管理システム");
+//		return mav;
+//	}
+	
 	@GetMapping("/")
-	public ModelAndView index(@ModelAttribute ModelAndView mav) {
+	public ModelAndView index() {
+		ModelAndView mav = new ModelAndView();
 		mav.setViewName("index");
 		mav.addObject("title", "社員情報管理システム");
 		return mav;
