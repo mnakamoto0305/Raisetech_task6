@@ -2,17 +2,35 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.sample.springboot.mybatis.EmployeeMapper">
+  <!-- 新規登録 -->
   <insert id="insert" useGeneratedKeys="true" keyProperty="id">
     INSERT INTO employees (
       name,
       age,
       email
     )
-    values (
+    VALUES (
       #{name},
       #{age},
       #{email}
     )
+  </insert>
+
+  <!-- 一括登録 -->
+  <insert id="bulkInsert" parameterType="java.util.List">
+    INSERT INTO employees (
+      name,
+      age,
+      email
+    )
+    VALUES
+    <foreach collection="listEmployee" item="list" separator=",">
+      (
+        #{list.name},
+        #{list.age},
+        #{list.email}
+      )
+    </foreach>
   </insert>
 
   <select id="findOne" parameterType="Long"

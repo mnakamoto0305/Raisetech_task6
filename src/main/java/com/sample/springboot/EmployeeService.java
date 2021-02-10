@@ -2,6 +2,7 @@ package com.sample.springboot;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -18,6 +19,12 @@ public class EmployeeService {
 	@Transactional
 	public boolean insert(Employee employee) {
 		return employeeMapper.insert(employee);
+	}
+
+	//一括登録メソッド
+	@Transactional
+	public int bulkInsert(@Param("listEmployee") List<Employee> listEmployee) {
+		return employeeMapper.bulkInsert(listEmployee);
 	}
 
 	//1件検索用メソッド
