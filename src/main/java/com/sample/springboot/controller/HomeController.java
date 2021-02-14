@@ -43,7 +43,7 @@ public class HomeController {
 	public ModelAndView addEmployee(@ModelAttribute Employee employee , ModelAndView mav) {
 		employeeService.insert(employee);
 		mav.setViewName("register");
-		return mav;
+		return new ModelAndView("redirect:/register");
 	}
 
 	//一括登録用
@@ -74,26 +74,23 @@ public class HomeController {
 		return new ModelAndView("redirect:/registerMany");
 	}
 
-//	//検索結果表示
-//	@GetMapping("/search/{id}")
-//	public ModelAndView search(@ModelAttribute UserSearchRequest userSearchRequest, ModelAndView mav) {
-//		mav.setViewName("search");
-//		mav.addObject("employee", employeeService.findOne(id));
-//		return mav;
-//	}
-
 	//フォーム検索
+	@GetMapping("/search")
+	public ModelAndView search(@ModelAttribute Employee employee, ModelAndView mav) {
+		mav.setViewName("search");
+		return mav;
+	}
+
 	@PostMapping("/search/result")
 	public ModelAndView form(@ModelAttribute UserSearchRequest userSearchRequest, ModelAndView mav) {
 		Employee employee = employeeService.findOne(userSearchRequest);
-		mav.setViewName("index");
+		mav.setViewName("search");
 		mav.addObject("employee", employee);
 		return mav;
-//		return new ModelAndView("redirect:/search/{id}");
 	}
 
 	//全件検索結果表示
-	@GetMapping("/search")
+	@GetMapping("/searchAll")
 	public ModelAndView searchAll(ModelAndView mav) {
 		mav.setViewName("searchAll");
 		mav.addObject("employees", employeeService.findAll());

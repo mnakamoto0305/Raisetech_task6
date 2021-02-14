@@ -11,7 +11,12 @@
   td { padding: 5px; color: gray; background: #f0f0f0;}
 </style>
 <body>
-  <h1 th:text="${title}">title</h1>
+  <h1>社員番号を入力してください。</h1>
+   <form th:action="@{/search/result}" th:object="${userSearchRequest}"  method="post">
+    <input type="text" name="id" />
+    <input type="submit" value="検索" />
+  </form>
+
   <p>検索結果</p>
   <table>
     <tr>

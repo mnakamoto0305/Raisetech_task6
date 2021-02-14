@@ -4,33 +4,30 @@
 <title th:text="${title}">title</title>
 </head>
 <style>
-  h1 {font-size: 18pt; font-weight: bold; color: gray;}
-  body {font-size: 13pt; color: gray; margin: 5px 25px;}
+h1 {
+	font-size: 18pt;
+	font-weight: bold;
+	color: gray;
+}
+
+body {
+	font-size: 13pt;
+	color: gray;
+	margin: 5px 25px;
+}
+
+.btn {
+	border-radius: 5px;
+	background-color: lightblue;
+	padding: 10px;
+	text-decoration: none;
+	color: white;
+}
 </style>
 <body th:object="${search}">
-  <h1 th:text="${title}">title</h1>
-  <p>社員番号を入力してください。</p>
-  <p>*フォーム欄は現在実装中につき使用不可</p>
-  <form th:action="@{/search/result}" th:object="${userSearchRequest}"  method="post">
-    <input type="text" name="id" />
-    <input type="submit" value="検索" />
-  </form>
-
-  <div th:if="${employee}">
-    <table th:object="${employee}">
-      <tr>
-	      <th>社員番号</th>
-	      <th>名前</th>
-	      <th>年齢</th>
-	      <th>メールアドレス</th>
-	    </tr>
-	    <tr>
-	      <td th:text="*{id}"></td>
-	      <td th:text="*{name}"></td>
-	      <td th:text="*{age}"></td>
-	      <td th:text="*{email}"></td>
-	    </tr>
-    </table>
-  </div>
+	<h1 th:text="${title}">title</h1>
+	<p>「検索」「登録」から行いたい操作を選んでください。</p>
+	<a href="/search" class="btn">検索</a>
+	<a href="/register" class="btn">登録</a>
 </body>
 </html>

@@ -16,37 +16,50 @@
         <th><label for="name">名前</label></th>
         <th><label for="age">年齢</label></th>
         <th><label for="email">メールアドレス</label></th>
+        <th><label for="password">パスワード</label></th>
+        <th><label for="sex">性別</label></th>
       </tr>
       <tr>
         <td>
           <input type="text" name="name" />
         </td>
         <td>
-          <input type="text" th:field="*{age}" />
+          <input type="text" name="age" />
         </td>
         <td>
-          <input type="text" name="email" />
+          <input type="email" name="email" />
+        </td>
+        <td>
+          <input type="password" name="password" />
+        </td>
+        <td>
+          <input type="radio" name="gender" value="男性" id="male"/>
+          <label for="male">男性</label>
+          <input type="radio" name="gender" value="女性" id="female"/>
+          <label for="female">女性</label>
         </td>
         <td><input type="submit" value="送信" /></td>
       </tr>
     </table>
    </form>
 
-<div th:if="${employee}">
+<!-- <div th:if="${employee}">
     <table th:object="${employee}">
       <tr>
         <th>社員番号</th>
         <th>名前</th>
         <th>年齢</th>
         <th>メールアドレス</th>
+        <th>パスワード</th>
       </tr>
       <tr>
         <td th:text="*{id}"></td>
         <td th:text="*{name}"></td>
         <td th:text="*{age}"></td>
         <td th:text="*{email}"></td>
+        <td th:text="*{password}"></td>
       </tr>
     </table>
-  </div>
+  </div> -->
 </body>
 </html>

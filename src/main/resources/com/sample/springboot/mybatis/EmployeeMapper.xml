@@ -7,12 +7,16 @@
     INSERT INTO employees (
       name,
       age,
-      email
+      email,
+      password,
+      gender
     )
     VALUES (
       #{name},
       #{age},
-      #{email}
+      #{email},
+      #{password},
+      #{gender}
     )
   </insert>
 
@@ -21,14 +25,18 @@
     INSERT INTO employees (
       name,
       age,
-      email
+      email,
+      password,
+      gender
     )
     VALUES
     <foreach collection="listEmployee" item="list" separator=",">
       (
         #{list.name},
         #{list.age},
-        #{list.email}
+        #{list.email},
+        #{list.password}.
+        #{list.gender},
       )
     </foreach>
   </insert>
@@ -39,7 +47,9 @@
     id,
     name,
     age,
-    email
+    email,
+    password,
+    gender
     FROM
     employees
     where
@@ -51,7 +61,9 @@
     id,
     name,
     age,
-    email
+    email,
+    password,
+    gender
     FROM
     employees
   </select>
