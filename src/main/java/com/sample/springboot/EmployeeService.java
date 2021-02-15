@@ -33,9 +33,26 @@ public class EmployeeService {
 		return employeeMapper.findOne(userSearchRequest);
 	}
 
+	@Transactional
+	public Employee findOne(Long id) {
+		return employeeMapper.findOne(id);
+	}
+
 	//全件検索用メソッド
 	@Transactional
 	public List<Employee> findAll() {
 		return employeeMapper.findAll();
+	}
+
+	//1件更新用メソッド
+	@Transactional
+	public boolean updateOne(Employee employee) {
+		return employeeMapper.updateOne(employee);
+	}
+
+	//1件削除用メソッド
+	@Transactional
+	public boolean deleteOne(Long id) {
+		return employeeMapper.deleteOne(id);
 	}
 }

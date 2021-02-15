@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<title th:text="${title}">title</title>
+</head>
+<style>
+h1 {
+	font-size: 18pt;
+	font-weight: bold;
+	color: gray;
+}
+
+body {
+	font-size: 13pt;
+	color: gray;
+	margin: 5px 25px;
+}
+
+.btn {
+	border-radius: 5px;
+	background-color: lightblue;
+	padding: 10px;
+	text-decoration: none;
+	color: white;
+}
+
+table {
+  margin: 5px;
+}
+</style>
+<body>
+	<form th:action="@{/employee/{id}(id=*{id})}" th:method="put" th:object="${employee}">
+	  <table>
+	   <tr>
+	     <th>社員番号</th>
+	     <th>名前</th>
+	     <th>年齢</th>
+	     <th>メールアドレス</th>
+	     <th>パスワード</th>
+	   </tr>
+	   <tr>
+	     <td><input type="text" th:field="*{id}" /></td>
+	     <td><input type="text" th:field="*{name}" /></td>
+	     <td><input type="text" th:field="*{age}" /></td>
+	     <td><input type="email" th:field="*{email}" /></td>
+	     <td><input type="password" th:field="*{password}" /></td>
+	   </tr>
+	  </table>
+	  <input type="submit" value="更新" class="btn"/>
+	</form>
+</body>
+</html>

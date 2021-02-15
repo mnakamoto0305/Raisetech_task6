@@ -41,6 +41,7 @@
     </foreach>
   </insert>
 
+  <!-- 1件検索 -->
   <select id="findOne" parameterType="Long"
     resultType="com.sample.springboot.Employee">
     SELECT
@@ -56,6 +57,7 @@
     id = #{id}
   </select>
 
+  <!-- 全件検索 -->
   <select id="findAll" resultType="com.sample.springboot.Employee">
     SELECT
     id,
@@ -67,4 +69,21 @@
     FROM
     employees
   </select>
+
+  <!-- 一件更新 -->
+  <update id="updateOne">
+    UPDATE employees
+      SET
+      name = #{name},
+      age = #{age},
+      email = #{email},
+      password = #{password},
+      gender = #{gender}
+     WHERE id = #{id}
+  </update>
+
+  <!-- 一件削除 -->
+  <delete id="deleteOne">
+    DELETE FROM employees WHERE id = #{id}
+  </delete>
 </mapper>

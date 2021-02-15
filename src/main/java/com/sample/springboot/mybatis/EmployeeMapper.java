@@ -13,6 +13,7 @@ public interface EmployeeMapper {
 
 	//1件検索用メソッド
 	public Employee findOne(UserSearchRequest userSearchRequest);
+	public Employee findOne(Long id);
 
 	//全件検索用メソッド
 	public List<Employee> findAll();
@@ -22,5 +23,11 @@ public interface EmployeeMapper {
 
 	//複数件登録用メソッド(バルクインサート)
 	public int bulkInsert(@Param("listEmployee") List<Employee> listEmployee);
+
+	//1件更新用メソッド
+	public boolean updateOne(Employee employee);
+
+	//1件削除用メソッド
+	public boolean deleteOne(Long id);
 
 }

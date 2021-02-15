@@ -7,8 +7,10 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -95,5 +97,38 @@ public class HomeController {
 		mav.setViewName("searchAll");
 		mav.addObject("employees", employeeService.findAll());
 		return mav;
+	}
+
+	//1件更新用
+	@GetMapping("employee/{id}/edit")
+	public ModelAndView edit(@PathVariable Long id, ModelAndView mav) {
+		Employee employee = employeeService.findOne(id);
+		mav.addObject("employee", employee);
+		mav.setViewName("edit");
+		return mav;
+	}
+
+	@PostMapping("employee/{id}")
+	public ModelAndView update(@PathVariable Long id, @ModelAttribute Employee employee, ModelAndView mav) {
+		mav.setViewName("index");
+		employee.setId(id);
+		employeeService.updateOne(employee);
+		return mav;
+	}
+
+	//1件削除用
+	@GetMapping("employee/{id}/delete")
+	public ModelAndView deleteConfirm(@PathVariable Long id, ModelAndView mav) {
+		Employee employee = employeeService.findOne(id);
+		mav.addObject("employee", employee);
+		mav.setViewName("delete");
+		return mav;
+	}
+
+	@DeleteMapping("employee/{id}")
+	public ModelAndView delete(@PathVariable Long id, ModelAndView mav) {
+		mav.setViewName("index");
+		employeeService.deleteOne(id);
+		return new ModelAndView("redirect:/");
 	}
 }
