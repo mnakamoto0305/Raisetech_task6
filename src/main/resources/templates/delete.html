@@ -5,50 +5,65 @@
 </head>
 <style>
 h1 {
-  font-size: 18pt;
-  font-weight: bold;
-  color: gray;
+	font-size: 18pt;
+	font-weight: bold;
+	color: gray;
 }
 
 body {
-  font-size: 13pt;
-  color: gray;
-  margin: 5px 25px;
+	font-size: 13pt;
+	color: gray;
+	margin: 5px 25px;
 }
 
 .btn {
-  border-radius: 5px;
-  background-color: lightblue;
-  padding: 10px;
-  text-decoration: none;
-  color: white;
+	border-radius: 5px;
+	background-color: lightblue;
+	padding: 10px;
+	text-decoration: none;
+	color: white;
+}
+
+th {
+	padding: 5px;
+	color: white;
+	background: darkgray;
+}
+
+td {
+	padding: 5px;
+	color: gray;
+	background: #f0f0f0;
 }
 
 table {
-  margin: 5px;
+	margin: 5px;
 }
 </style>
 <body>
-  <p>次の社員情報を削除してよろしいですか？</p>
-  <p>よろしければ「削除」を選択してください。</p>
-  <form th:action="@{/employee/{id}(id=*{id})}" th:method="delete" th:object="${employee}">
-    <table>
-     <tr>
-       <th>社員番号</th>
-       <th>名前</th>
-       <th>年齢</th>
-       <th>メールアドレス</th>
-       <th>パスワード</th>
-     </tr>
-     <tr>
-       <td><input type="text" th:field="*{id}" /></td>
-       <td><input type="text" th:field="*{name}" /></td>
-       <td><input type="text" th:field="*{age}" /></td>
-       <td><input type="email" th:field="*{email}" /></td>
-       <td><input type="password" th:field="*{password}" /></td>
-     </tr>
-    </table>
-    <input type="submit" value="削除" class="btn"/>
-  </form>
+	<p>次の社員情報を削除してよろしいですか？</p>
+	<p>よろしければ「削除」を選択してください。</p>
+	<form th:action="@{/employee/{id}(id=*{id})}" th:method="delete"
+		th:object="${employee}">
+		<table>
+			<tr>
+				<th>社員番号</th>
+				<td th:text="*{id}"></td>
+			</tr>
+			<tr>
+				<th>名前</th>
+				<td th:text="*{name}"></td>
+			</tr>
+			<tr>
+				<th>年齢</th>
+				<td th:text="*{age}"></td>
+			</tr>
+			<tr>
+				<th>メールアドレス</th>
+				<td th:text="*{email}"></td>
+			</tr>
+		</table>
+		<input type="submit" value="削除" class="btn" />
+	</form>
 </body>
 </html>

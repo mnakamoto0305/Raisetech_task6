@@ -7,11 +7,14 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.sample.springboot.Employee;
@@ -42,10 +45,19 @@ public class HomeController {
 	}
 
 	@PostMapping("/register/id_employee")
-	public ModelAndView addEmployee(@ModelAttribute Employee employee , ModelAndView mav) {
-		employeeService.insert(employee);
-		mav.setViewName("register");
-		return new ModelAndView("redirect:/register");
+	public ModelAndView addEmployee(@ModelAttribute @Validated Employee employee, BindingResult result, ModelAndView mav) {
+		ModelAndView res = null;
+
+		if (!result.hasErrors()) {
+			employeeService.insert(employee);
+			mav.setViewName("register");
+			res = new ModelAndView("redirect:/register");
+		} else {
+			mav.setViewName("register");
+			res = mav;
+		}
+
+		return res;
 	}
 
 	//一括登録用
@@ -86,7 +98,7 @@ public class HomeController {
 	@PostMapping("/search/result")
 	public ModelAndView form(@ModelAttribute UserSearchRequest userSearchRequest, ModelAndView mav) {
 		Employee employee = employeeService.findOne(userSearchRequest);
-		mav.setViewName("search");
+		mav.setViewName("searchResult");
 		mav.addObject("employee", employee);
 		return mav;
 	}
@@ -108,7 +120,7 @@ public class HomeController {
 		return mav;
 	}
 
-	@PostMapping("employee/{id}")
+	@PutMapping("employee/{id}")
 	public ModelAndView update(@PathVariable Long id, @ModelAttribute Employee employee, ModelAndView mav) {
 		mav.setViewName("index");
 		employee.setId(id);
