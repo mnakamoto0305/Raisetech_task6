@@ -10,7 +10,7 @@
 <body th:object="${search}">
   <h1 th:text="${title}">title</h1>
   <p>登録する社員情報を入力してください</p>
-    <form th:action="@{/register/id_employees}" th:object="${employeeList}"  method="post">
+    <form th:action="@{/register/id_employees}" th:object="${employeeList}"  th:method="post">
      <table>
       <tr>
         <th><label for="name">名前</label></th>

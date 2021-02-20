@@ -64,8 +64,10 @@ table {
        <th>パスワード</th>
        <td><input type="password" th:field="*{password}" /></td>
      </tr>
-	  </table>
-	  <input type="submit" value="更新" class="btn"/>
-	</form>
+    </table>
+    <input type="submit" value="更新" class="btn"/>
+  </form>
+
+  <a th:href="@{/search}">戻る</a>
 </body>
 </html>

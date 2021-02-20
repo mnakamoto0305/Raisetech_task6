@@ -97,9 +97,24 @@ public class HomeController {
 
 	@PostMapping("/search/result")
 	public ModelAndView form(@ModelAttribute UserSearchRequest userSearchRequest, ModelAndView mav) {
-		Employee employee = employeeService.findOne(userSearchRequest);
 		mav.setViewName("searchResult");
-		mav.addObject("employee", employee);
+		mav.addObject("employees", employeeService.findMany(userSearchRequest));
+		return mav;
+	}
+
+	//年齢検索
+	@PostMapping("/search/result/age")
+	public ModelAndView moreAge(@ModelAttribute UserSearchRequest userSearchRequest ,ModelAndView mav) {
+		mav.setViewName("searchResultAge");
+		mav.addObject("employees", employeeService.moreAge(userSearchRequest));
+		return mav;
+	}
+
+	//性別検索
+	@PostMapping("/search/result/gender")
+	public ModelAndView searchGender(@ModelAttribute UserSearchRequest userSearchRequest ,ModelAndView mav) {
+		mav.setViewName("searchResultGender");
+		mav.addObject("employees", employeeService.searchGender(userSearchRequest));
 		return mav;
 	}
 
@@ -127,6 +142,13 @@ public class HomeController {
 		employeeService.updateOne(employee);
 		return mav;
 	}
+
+	//実装中
+//	//複数件更新用
+//	@GetMapping("/employee/editAll")
+//	public ModelAndView editAll(@ModelAttribute EmployeeList employeeList, ModelAndView modelAndView) {
+//
+//	}
 
 	//1件削除用
 	@GetMapping("employee/{id}/delete")

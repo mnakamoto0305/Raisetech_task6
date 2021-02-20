@@ -1,11 +1,11 @@
 package com.sample.springboot;
 
 import javax.validation.constraints.Email;
-import javax.validation.constraints.Min;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 
+import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.Range;
 
 import lombok.Data;
@@ -28,7 +28,7 @@ public class Employee {
 
 	@NotEmpty
     @Pattern(regexp="[\\w]+")
-	@Min(5)
+	@Length(min=5, message="5文字以上で入力してください。")
 	private String password;
 
 

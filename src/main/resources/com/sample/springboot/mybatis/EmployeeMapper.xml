@@ -42,8 +42,7 @@
   </insert>
 
   <!-- 1件検索 -->
-  <select id="findOne" parameterType="Long"
-    resultType="com.sample.springboot.Employee">
+  <select id="findOne" resultType="com.sample.springboot.Employee">
     SELECT
     id,
     name,
@@ -54,7 +53,52 @@
     FROM
     employees
     where
-    id = #{id}
+    id = #{id} OR name = #{name}
+  </select>
+
+    <!-- 複数検索 -->
+  <select id="findMany" resultType="com.sample.springboot.Employee">
+    SELECT
+    id,
+    name,
+    age,
+    email,
+    password,
+    gender
+    FROM
+    employees
+    where
+    id = #{id} OR name = #{name}
+  </select>
+
+  <!-- ◯歳以上 -->
+  <select id="moreAge" resultType="com.sample.springboot.Employee">
+    SELECT
+    id,
+    name,
+    age,
+    email,
+    password,
+    gender
+    FROM
+    employees
+    WHERE
+    age >= #{age}
+  </select>
+
+    <!-- 性別で検索 -->
+  <select id="searchGender" resultType="com.sample.springboot.Employee">
+    SELECT
+    id,
+    name,
+    age,
+    email,
+    password,
+    gender
+    FROM
+    employees
+    WHERE
+    gender = #{gender}
   </select>
 
   <!-- 全件検索 -->
@@ -80,6 +124,25 @@
       password = #{password},
       gender = #{gender}
      WHERE id = #{id}
+  </update>
+
+  <!-- 複数件更新 -->
+  <update id="bulkUpdate">
+    UPDATE employees
+      SET 　name = elt(field(id,
+      <foreach collection="listEmployee" item="list" separator=",">
+        #{list.id}
+      </foreach>
+      ),
+      <foreach collection="listEmployee" item="list" separator=",">
+        #{list.name}
+      </foreach>
+      )
+      WHERE id in (
+      <foreach collection="listEMployee" item="list" separator=",">
+        #{list.id}
+      </foreach>
+      )
   </update>
 
   <!-- 一件削除 -->

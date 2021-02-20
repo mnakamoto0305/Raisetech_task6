@@ -23,8 +23,8 @@ public class EmployeeService {
 
 	//一括登録メソッド
 	@Transactional
-	public int bulkInsert(@Param("listEmployee") List<Employee> listEmployee) {
-		return employeeMapper.bulkInsert(listEmployee);
+	public int bulkInsert(@Param("listEmployee") List<Employee> employees) {
+		return employeeMapper.bulkInsert(employees);
 	}
 
 	//1件検索用メソッド
@@ -38,6 +38,24 @@ public class EmployeeService {
 		return employeeMapper.findOne(id);
 	}
 
+	//複数検索メソッド
+	@Transactional
+	public List<Employee> findMany(UserSearchRequest userSearchRequest) {
+		return employeeMapper.findMany(userSearchRequest);
+	}
+
+	//年齢検索用メソッド(◯歳以上)
+	@Transactional
+	public List<Employee> moreAge(UserSearchRequest userSearchRequest) {
+		return employeeMapper.moreAge(userSearchRequest);
+	}
+
+	//性別検索用メソッド
+	@Transactional
+	public List<Employee> searchGender(UserSearchRequest userSearchRequest) {
+		return employeeMapper.searchGender(userSearchRequest);
+	}
+
 	//全件検索用メソッド
 	@Transactional
 	public List<Employee> findAll() {
@@ -48,6 +66,12 @@ public class EmployeeService {
 	@Transactional
 	public boolean updateOne(Employee employee) {
 		return employeeMapper.updateOne(employee);
+	}
+
+	//複数件更新用メソッド
+	@Transactional
+	public int bulkUpdate(@Param("listEmployee") List<Employee> employees) {
+		return employeeMapper.bulkUpdate(employees);
 	}
 
 	//1件削除用メソッド

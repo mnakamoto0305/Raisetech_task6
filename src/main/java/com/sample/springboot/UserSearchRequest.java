@@ -2,15 +2,17 @@ package com.sample.springboot;
 
 import java.io.Serializable;
 
+import lombok.Data;
+
+@Data
 public class UserSearchRequest implements Serializable{
 
 	private Long id;
 
-	public Long getId() {
-		return id;
-	}
+	private String name;
 
-	public void setId(Long id) {
-		this.id = id;
-	}
+	private Integer age;
+
+	private String gender;
+
 }

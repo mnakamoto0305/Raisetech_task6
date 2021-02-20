@@ -41,17 +41,38 @@ td {
 }
 
 table {
-  margin: 5px;
+	margin: 5px;
 }
 </style>
 <body>
-	<h1>社員番号を入力してください。</h1>
+	<h1>社員番号または社員名を入力してください。</h1>
 	<form th:action="@{/search/result}" th:object="${userSearchRequest}"
 		method="post">
-		<input type="text" name="id" /> <input type="submit" value="検索" />
+		社員番号:<input type="text" name="id" />
+		名前:<input type="text" name="name" />
+		<input type="submit" value="検索" />
 	</form>
 
-<!-- 	<p>検索結果</p>
+	 <h1>検索したい年齢を入力してください。</h1>
+  <form th:action="@{/search/result/age}" th:object="${userSearchRequest}"
+    method="post">
+    年齢:<input type="text" name="age" />歳以上
+    <input type="submit" value="検索" />
+  </form>
+
+  <h1>検索したい性別を選択してください。</h1>
+  <form th:action="@{/search/result/gender}" th:object="${userSearchRequest}"
+    method="post">
+    性別:
+    <select name="gender">
+      <option value="男性">男性</option>
+      <option value="女性">女性</option>
+    </select>
+    <input type="submit" value="検索" />
+  </form>
+
+  <a th:href="@{/}">戻る</a>
+	<!-- 	<p>検索結果</p>
 	<div  th:object="${employee}">
 		<table>
 			<tr>

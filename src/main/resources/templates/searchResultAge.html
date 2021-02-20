@@ -4,44 +4,17 @@
 <title th:text="${title}">タイトル</title>
 </head>
 <style>
-h1 {
-  font-size: 18pt;
-  font-weight: bold;
-  color: gray;
-}
-
-body {
-  font-size: 13pt;
-  color: gray;
-  margin: 5px 25px;
-}
-
-tr {
-  margin: 5px;
-}
-
-th {
-  padding: 5px;
-  color: white;
-  background: darkgray;
-}
-
-td {
-  padding: 5px;
-  color: gray;
-  background: #f0f0f0;
-}
-
-.btn {
+  h1 {font-size: 18pt; font-weight: bold; color: gray;}
+  body {font-size: 13pt; color: gray; margin: 5px 25px;}
+  tr { margin: 5px;}
+  th { padding: 5px; color: white; background: darkgray;}
+  td { padding: 5px; color: gray; background: #f0f0f0;}
+  .btn {
   border-radius: 5px;
   background-color: lightblue;
   padding: 10px;
   text-decoration: none;
   color: white;
-}
-
-table {
-  margin: 5px;
 }
 </style>
 <body>
@@ -53,9 +26,14 @@ table {
     <input type="submit" value="検索" />
   </form>
 
+   <h1>検索したい年齢を入力してください。</h1>
+  <form th:action="@{/search/result/age}" th:object="${userSearchRequest}"
+    method="post">
+    年齢:<input type="text" name="age" />歳以上
+    <input type="submit" value="検索" />
+  </form>
 
   <p>検索結果</p>
-
   <table>
     <tr>
       <th>社員番号</th>
@@ -69,15 +47,10 @@ table {
       <td th:text="*{age}"></td>
       <td th:text="*{email}"></td>
       <td>
-	      <a th:href="@{/employee/{id}/edit(id=*{id})}" class="btn">更新</a>
+        <a th:href="@{/employee/{id}/edit(id=*{id})}" class="btn">更新</a>
       </td>
       <td>
-	      <a th:href="@{/employee/{id}/delete(id=*{id})}" class="btn">削除</a>
-      </td>
-    </tr>
-    <tr>
-      <td>
-        <a th:href="@{/employee/editAll}" class="btn">一括更新</a>
+        <a th:href="@{/employee/{id}/delete(id=*{id})}" class="btn">削除</a>
       </td>
     </tr>
   </table>
