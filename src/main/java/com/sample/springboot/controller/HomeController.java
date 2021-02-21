@@ -3,7 +3,7 @@ package com.sample.springboot.controller;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -27,6 +27,9 @@ public class HomeController {
 
 	@Autowired
 	EmployeeService employeeService;
+
+	@Autowired
+	HttpSession session;
 
 	//メインページ
 	@GetMapping("/")
@@ -82,7 +85,7 @@ public class HomeController {
 
 	//一括登録　登録ボタン
 	@PostMapping(value = "/register/id_employees", params = "create")
-	public ModelAndView addEmployees(@ModelAttribute EmployeeList employeeList , ModelAndView mav, HttpServletRequest request) {
+	public ModelAndView addEmployees(@ModelAttribute EmployeeList employeeList , ModelAndView mav) {
 		employeeService.bulkInsert(employeeList.getListEmployee());
 		mav.setViewName("registerMany");
 		return new ModelAndView("redirect:/registerMany");
@@ -99,6 +102,8 @@ public class HomeController {
 	public ModelAndView form(@ModelAttribute UserSearchRequest userSearchRequest, ModelAndView mav) {
 		mav.setViewName("searchResult");
 		mav.addObject("employees", employeeService.findMany(userSearchRequest));
+		List<Employee> employeee = employeeService.findMany(userSearchRequest);
+		session.setAttribute("searchResults", employeee);
 		return mav;
 	}
 
@@ -143,12 +148,21 @@ public class HomeController {
 		return mav;
 	}
 
-	//実装中
-//	//複数件更新用
-//	@GetMapping("/employee/editAll")
-//	public ModelAndView editAll(@ModelAttribute EmployeeList employeeList, ModelAndView modelAndView) {
-//
-//	}
+	//複数件更新用
+	@GetMapping("/employee/editAll")
+	public ModelAndView editAll(@ModelAttribute EmployeeList employeeList, ModelAndView mav) {
+		List<Employee> listEmployee = (List<Employee>)session.getAttribute("searchResults");
+		employeeList.setListEmployee(listEmployee);
+		mav.setViewName("editAll");
+		return mav;
+	}
+
+	@PutMapping(value = "/edit/id_employees")
+	public ModelAndView UpdateAll(@ModelAttribute EmployeeList employeeList, ModelAndView mav) {
+		employeeService.bulkUpdate(employeeList.getListEmployee());
+		session.invalidate();
+		return new ModelAndView("redirect:/search");
+	}
 
 	//1件削除用
 	@GetMapping("employee/{id}/delete")

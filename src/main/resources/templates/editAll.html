@@ -13,20 +13,23 @@
     <form th:action="@{/edit/id_employees}" th:object="${employeeList}"  th:method="put">
      <table>
       <tr>
+        <th><label for="id">社員番号</label></th>
         <th><label for="name">名前</label></th>
-        <!-- <th><label for="age">年齢</label></th>
-        <th><label for="email">メールアドレス</label></th> -->
+        <th><label for="age">年齢</label></th>
+        <th><label for="email">メールアドレス</label></th>
       </tr>
       <tr th:each="employee, st : *{listEmployee}">
+		    <input type="hidden" th:field="*{listEmployee[__${st.index}__].id}">
+        <td th:text="*{listEmployee[__${st.index}__].id}"></td>
         <td>
           <input type="text" th:field="*{listEmployee[__${st.index}__].name}">
         </td>
-        <!-- <td>
+        <td>
           <input type="text" th:field="*{listEmployee[__${st.index}__].age}">
         </td>
         <td>
           <input type="text" th:field="*{listEmployee[__${st.index}__].email}">
-        </td> -->
+        </td>
       </tr>
     </table>
     <input type="submit" value="更新" class="btn"/>
