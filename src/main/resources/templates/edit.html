@@ -42,7 +42,7 @@ table {
 }
 </style>
 <body>
-	<form th:action="@{/employee/{id}(id=*{id})}" th:method="put" th:object="${employee}">
+	<form th:action="@{/employee/confirm}" th:method="post" th:object="${employee}">
 	  <table>
 	   <tr>
 	     <th>社員番号</th>

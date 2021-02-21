@@ -32,7 +32,7 @@ td {
 <body th:object="${search}">
 	<h1 th:text="${title}">title</h1>
 	<p>登録する社員情報を入力してください</p>
-	<form th:action="@{/register/id_employee}" th:object="${employee}"
+	<form th:action="@{/register/confirm}" th:object="${employee}"
 		method="post">
 		<table>
 			<tr>

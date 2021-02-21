@@ -47,20 +47,23 @@ public class HomeController {
 		return mav;
 	}
 
-	@PostMapping("/register/id_employee")
-	public ModelAndView addEmployee(@ModelAttribute @Validated Employee employee, BindingResult result, ModelAndView mav) {
-		ModelAndView res = null;
-
+	@PostMapping("/register/confirm")
+	public ModelAndView registerConfirm(@ModelAttribute @Validated Employee employee, BindingResult result, ModelAndView mav) {
 		if (!result.hasErrors()) {
-			employeeService.insert(employee);
-			mav.setViewName("register");
-			res = new ModelAndView("redirect:/register");
+			session.setAttribute("regEmployee", employee);
+			mav.setViewName("registerConfirm");
 		} else {
 			mav.setViewName("register");
-			res = mav;
 		}
+		return mav;
+	}
 
-		return res;
+	@PostMapping("/register/id_employee")
+	public ModelAndView addEmployee(@ModelAttribute @Validated Employee employee, BindingResult result, ModelAndView mav) {
+		Employee regEmployee = (Employee) session.getAttribute("regEmployee");
+		employeeService.insert(regEmployee);
+		session.invalidate();
+		return new ModelAndView("redirect:/register");
 	}
 
 	//一括登録用
@@ -135,16 +138,25 @@ public class HomeController {
 	@GetMapping("employee/{id}/edit")
 	public ModelAndView edit(@PathVariable Long id, ModelAndView mav) {
 		Employee employee = employeeService.findOne(id);
+		session.setAttribute("updEmployee", employee);
 		mav.addObject("employee", employee);
 		mav.setViewName("edit");
+		return mav;
+	}
+
+	@PostMapping("employee/confirm")
+	public ModelAndView updateConfirm(@ModelAttribute Employee employee, ModelAndView mav) {
+		mav.setViewName("editConfirm");
+		session.setAttribute("updEmployee", employee);
 		return mav;
 	}
 
 	@PutMapping("employee/{id}")
 	public ModelAndView update(@PathVariable Long id, @ModelAttribute Employee employee, ModelAndView mav) {
 		mav.setViewName("index");
-		employee.setId(id);
-		employeeService.updateOne(employee);
+		Employee updEmployee = (Employee) session.getAttribute("updEmployee");
+		employeeService.updateOne(updEmployee);
+		session.invalidate();
 		return mav;
 	}
 

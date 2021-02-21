@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<title th:text="${title}">title</title>
+</head>
+<style>
+h1 {
+  font-size: 18pt;
+  font-weight: bold;
+  color: gray;
+}
+
+body {
+  font-size: 13pt;
+  color: gray;
+  margin: 5px 25px;
+}
+
+.btn {
+  border-radius: 5px;
+  background-color: lightblue;
+  padding: 10px;
+  text-decoration: none;
+  color: white;
+}
+
+th {
+  padding: 5px;
+  color: white;
+  background: darkgray;
+}
+
+td {
+  padding: 5px;
+  color: gray;
+  background: #f0f0f0;
+}
+
+
+table {
+  margin: 5px;
+}
+</style>
+<body>
+  <p>こちらの内容で更新してよろしいですか?</p>
+  <form th:action="@{/employee/{id}(id=*{id})}" th:method="put" th:object="${employee}">
+    <table>
+     <tr>
+       <th>社員番号</th>
+       <td th:text="*{id}"></td>
+     </tr>
+     <tr>
+       <th>名前</th>
+       <td th:text="*{name}"></td>
+     </tr>
+     <tr>
+       <th>年齢</th>
+       <td th:text="*{age}"></td>
+     </tr>
+     <tr>
+       <th>メールアドレス</th>
+       <td th:text="*{email}"></td>
+     </tr>
+     <tr>
+       <th>パスワード</th>
+       <td th:text="*{password}"></td>
+     </tr>
+    </table>
+    <input type="submit" value="更新" class="btn"/>
+  </form>
+
+  <a th:href="@{/search}">戻る</a>
+</body>
+</html>
