@@ -7,9 +7,11 @@ import javax.validation.constraints.Pattern;
 
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.Range;
+import org.springframework.stereotype.Repository;
 
 import lombok.Data;
 
+@Repository
 @Data
 public class Employee {
 

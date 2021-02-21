@@ -25,18 +25,14 @@
     INSERT INTO employees (
       name,
       age,
-      email,
-      password,
-      gender
+      email
     )
     VALUES
     <foreach collection="listEmployee" item="list" separator=",">
       (
         #{list.name},
         #{list.age},
-        #{list.email},
-        #{list.password}.
-        #{list.gender},
+        #{list.email}
       )
     </foreach>
   </insert>
@@ -129,7 +125,7 @@
   <!-- 複数件更新 -->
   <update id="bulkUpdate">
     UPDATE employees
-      SET 　name = elt(field(id,
+      SET name = elt(field(id,
       <foreach collection="listEmployee" item="list" separator=",">
         #{list.id}
       </foreach>
@@ -137,9 +133,18 @@
       <foreach collection="listEmployee" item="list" separator=",">
         #{list.name}
       </foreach>
+      ),
+      age = elt(field(id,
+      <foreach collection="listEmployee" item="list" separator=",">
+        #{list.id}
+      </foreach>
+      ),
+      <foreach collection="listEmployee" item="list" separator=",">
+        #{list.age}
+      </foreach>
       )
       WHERE id in (
-      <foreach collection="listEMployee" item="list" separator=",">
+      <foreach collection="listEmployee" item="list" separator=",">
         #{list.id}
       </foreach>
       )
